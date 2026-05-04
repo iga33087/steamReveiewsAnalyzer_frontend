@@ -1,0 +1,80 @@
+$color1:linear-gradient(0deg,rgba(54, 54, 54, 1) 10%, rgba(41, 74, 166, 1) 50%, rgba(54, 54, 54, 1) 100%);
+$color2:rgba(77, 76, 85, 0.171);
+
+html,body {
+  margin: 0;
+  padding: 0;
+  font-family: Microsoft JhengHei;
+  background: $color1;
+  box-shadow: 0 0 10vw rgba(0,0,0,0.8) inset;
+}
+
+.headerBox {
+  height: 70px;
+  .headerBoxInner {
+    height: 100%;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $color2;
+    color:#fff;
+    //backdrop-filter: blur(10px);
+  }
+  .headerBoxInnerLogo {
+    font-size: 1.6rem;
+  }
+  .headerBoxInnerMenu {
+    display: flex;
+    align-items: center;
+  }
+  .headerBoxInnerMenuItem {
+    font-size: 1.3rem;
+    margin-left: 2rem;
+  }
+}
+
+.content {
+  height: calc(100vh - 70px);
+  padding: 2rem;
+  box-sizing: border-box;
+  color:#fff;
+  overflow-y: scroll;
+}
+
+.cardBox {
+  border-radius: 10px;
+  overflow: hidden;
+  .cardBoxTitle {
+    padding: 1rem;
+    background-color: rgba(0,0,0,0.4);
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+  .cardBoxContent {
+    padding: 1rem;
+    background-color: rgba(0,0,0,0.2);
+  }
+}
+
+.labelBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: rgba(0,0,0,0.4);
+  border-radius: 10px;
+  .labelBoxTitle {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+  .labelBoxContent {
+    font-size: 1.3rem;
+  }
+}
+
+.report {
+  .reportGameImg {
+    border-radius: 10px;
+  }
+}
