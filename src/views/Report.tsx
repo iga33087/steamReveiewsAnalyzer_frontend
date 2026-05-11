@@ -159,6 +159,13 @@ function comprehensiveChart(data) {
     },
     options: {
       maintainAspectRatio: false,
+      scales: {
+        r: {
+          min: 0,
+          max: 10,
+          beginAtZero: true
+        }
+      },
       title: {
         display: false,
       },
@@ -198,8 +205,8 @@ export default function Report() {
               <div className="row">
                 <div className="col-12 fs-1 mb-2">{info?.info?.name}</div>
                 <div className="col-4 mb-3"><LabelBox title="評論總數" content={info?.total?.total_reviews}></LabelBox></div>
-                <div className="col-4 mb-3"><LabelBox title="好評率" content={info?.total?.total_positive}></LabelBox></div>
-                <div className="col-4 mb-3"><LabelBox title="負評率" content={info?.total?.total_negative}></LabelBox></div>
+                <div className="col-4 mb-3"><LabelBox title="好評率" content={`${info?.total?.total_positive} (${((info?.total?.total_positive / info?.total?.total_reviews).toFixed(2))*100}%)`}></LabelBox></div>
+                <div className="col-4 mb-3"><LabelBox title="負評率" content={`${info?.total?.total_negative} (${((info?.total?.total_negative / info?.total?.total_reviews).toFixed(2))*100}%)`}></LabelBox></div>
                 <div className="col-6 mb-3"><LabelBox title="優點統整" content={
                   (report?.positive||[]).map((item,index)=><span className='ms-2' key={index}>{item.title}</span>)
                 }></LabelBox></div>
@@ -224,7 +231,7 @@ export default function Report() {
             <CardBox title="評論時間統計" content={<ChartBox data={timeChart(info)} height='300px' />} />
           </div>
           <div className="col-12 mb-3">
-            <CardBox title="報告說明" content={<div className='fs-3'>{report?.summary}</div>} />
+            <CardBox title="報告說明" content={<div className='fs-4'>{report?.summary}</div>} />
           </div>
         </div>
       </div>
