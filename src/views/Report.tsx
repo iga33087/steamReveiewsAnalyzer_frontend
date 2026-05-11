@@ -80,7 +80,7 @@ function wordCloudChart(data) {
       return {...r,positive:false}
     }),
   ]
-  const min=100/100
+  const min=70/100
   return {
     type:'wordCloud',
     data:{
