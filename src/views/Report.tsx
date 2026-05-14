@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import api from '../assets/js/api'
+import dayjs from 'dayjs'
 import { markdown } from 'markdown'
+import { produce } from 'immer';
 import { useParams } from "react-router"
 import CardBox from "../components/CardBox"
 import LabelBox from "../components/LabelBox"
@@ -154,14 +156,20 @@ export default function Report() {
   const params = useParams()
 
   useEffect(()=> {
-    init()
+    init(params.id)
   },[])
 
-  async function init() {
-    //let res=await api.genReport({id:'2246340'})
-    console.log(markdown)
-    setReport(await api.getReport({id:params.id}))
-    console.log(1222,markdown.toHTML)
+  async function init(reportId) {
+    const data=await api.getReport({id:reportId})
+    data.report.summary=markdown.toHTML(data.report.summary)
+    setReport(data)
+  }
+
+  function consumeTime() {
+    if(!report) return ''
+    const date1 = dayjs(report.genStartTime*1000);
+    const date2 = dayjs(report.genEndTime*1000);
+    return date2.diff(date1, 'minutes')
   }
 
   return (
@@ -184,8 +192,8 @@ export default function Report() {
                 <div className="col-6 mb-3"><LabelBox title="缺點統整" content={
                   (report?.report?.negative||[]).map((item,index)=><span className='ms-2' key={index}>{item.title}</span>)
                 }></LabelBox></div>
-                <div className="col-6 mb-3"><LabelBox title="報告生成時間" content="2026/05/01"></LabelBox></div>
-                <div className="col-6 mb-3"><LabelBox title="評論時間範圍" content={`${report?.timeRange?.start} ~ ${report?.timeRange?.end}`}></LabelBox></div>
+                <div className="col-6 mb-3"><LabelBox title="報告生成時間" content={`${dayjs(report?.createTime*1000).format('YYYY/MM/DD HH:mm')}　(${consumeTime()})　(${report?.model})`}></LabelBox></div>
+                <div className="col-6 mb-3"><LabelBox title="評論時間範圍" content={`${report?.timeRange?.start} ~ ${report?.timeRange?.end}　(${report?.size}個評論)`}></LabelBox></div>
               </div>
           </div>
 
