@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import api from '../assets/js/api'
+import { markdown } from 'markdown'
+import { useParams } from "react-router"
 import CardBox from "../components/CardBox"
 import LabelBox from "../components/LabelBox"
 import ChartBox from "../components/ChartBox"
@@ -149,14 +151,17 @@ function comprehensiveChart(data) {
 export default function Report() {
   
   const [report, setReport] = useState(null)
+  const params = useParams()
 
   useEffect(()=> {
     init()
   },[])
 
   async function init() {
-    let res=await api.genReport({id:'1903340'})
-    setReport(await api.getReport({id:res.id}))
+    //let res=await api.genReport({id:'2246340'})
+    console.log(markdown)
+    setReport(await api.getReport({id:params.id}))
+    console.log(1222,markdown.toHTML)
   }
 
   return (
@@ -197,7 +202,7 @@ export default function Report() {
             <CardBox title="評論時間統計" content={<ChartBox data={timeChart(report)} height='300px' />} />
           </div>
           <div className="col-12 mb-3">
-            <CardBox title="報告說明" content={<div className='fs-4'>{report?.report?.summary}</div>} />
+            <CardBox title="報告說明" content={<div className='fs-4' dangerouslySetInnerHTML={{ __html: report?.report?.summary }}></div>} />
           </div>
         </div>
       </div>

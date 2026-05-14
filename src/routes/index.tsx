@@ -3,7 +3,7 @@ import Report from '../views/Report'
 
 export default createBrowserRouter([
   {
-    path: "/",
+    path: "/report/:id",
     Component: Report,
   },
 ]);
