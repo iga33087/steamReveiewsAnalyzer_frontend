@@ -120,3 +120,60 @@ html,body {
     border-radius: 10px;
   }
 }
+
+.reportList {
+  .reportListItem {
+    width: 100%;
+    background-color: rgba(77, 76, 85, 0.486);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  .reportListItemImg {
+    width: 220px;
+    height: 100%;
+    border-radius: 20px;
+    margin-right: 1rem;
+  }
+  .reportListItemContent {
+    width: calc(100% - 220px - 1rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .reportListItemContentBox {
+  }
+  .reportListItemContentBoxTitle {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  .reportListItemContentBoxInfo {
+    display: flex;
+    align-items: center;
+  }
+  .reportListItemContentBoxInfoItem {
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+    background-color: rgba(0,0,0,0.4);
+    border-radius: 10px;
+    padding: 4px 10px;
+  }
+  .reportListItemContentBoxInfoItemTitle {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-right: 1rem;
+  }
+  .reportListItemContentBoxInfoItemValue {
+
+  }
+  .reportListItemContentScore {
+    width: 100px;
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+  }
+}

@@ -160,7 +160,7 @@ export default function Report() {
   },[])
 
   async function init(reportId) {
-    const data=await api.getReport({id:reportId})
+    const data=await api.getReportOne(reportId)
     data.report.summary=markdown.toHTML(data.report.summary)
     setReport(data)
   }

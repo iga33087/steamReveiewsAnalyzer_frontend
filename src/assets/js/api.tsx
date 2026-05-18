@@ -8,9 +8,12 @@ export default {
     return instance.get(`/genReport`,{params:x}).then(res=>res.data)
   },
   async getReport(x) {
-    return instance.get(`/getReport`,{params:x}).then(res=>res.data)
+    return instance.get(`/report`,{params:x}).then(res=>res.data)
+  },
+  async getReportOne(x) {
+    return instance.get(`/report/${x}`).then(res=>res.data)
   },
   async getModel() {
     return instance.get(`/model`).then(res=>res.data)
-  }
+  },
 }
