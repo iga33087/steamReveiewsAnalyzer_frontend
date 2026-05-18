@@ -82,20 +82,33 @@ html,body {
     justify-content: center;
   }
   .homeBoxInput {
-
+    margin-top: 3rem;
+    width: 50vw;
   }
   .homeBoxInputTitle {
     font-size: 2.4rem;
     margin-bottom: 2rem;
   }
   .homeBoxInputBox {
-    width: 40vw;
+    border-width: 0;
+    width: calc(100% - 500px - 2rem);
     padding: 0.4rem;
     font-size: 1.6rem;
+    box-shadow: 0 0 20px #000 inset;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.4);
+    color:#fff;
   }
   .homeBoxInputSelect {
+    border-width: 0;
+    width: 250px;
     padding: 0.4rem;
     font-size: 1.6rem;
+    margin-left: 1rem;
+    box-shadow: 0 0 20px #000 inset;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.4);
+    color:#fff;
   }
   .homeBoxInputButton {
 
