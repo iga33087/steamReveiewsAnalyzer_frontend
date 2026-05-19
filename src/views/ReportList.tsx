@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import PageBox from '../components/PageBox'
 import api from '../assets/js/api'
-import dayjs from 'dayjs'
+import { NavLink } from "react-router";
+import global from '../assets/js/global'
 
 export default function ReportList() {
   const [pageForm,setPageForm] = useState({
@@ -12,35 +13,37 @@ export default function ReportList() {
   const [list, setList] = useState({data:[],total:0})
 
   useEffect(()=> {
-    init(pageForm)
-  },[pageForm])
-
-  function getTimeDiff(start,end) {
-    let res=''
-    let key=0
-    let list=['seconds','minutes','hours']
-    while(true) {
-      res=dayjs(start).diff(end,list[key])
-      if(res>=60&&key<list.length-1) key++
-      else break
-    }
-    return `${res} ${list[key]}`
-  }
+    init()
+  },[pageForm.page])
 
   async function init() {
     setList(await api.getReport(pageForm))
-    console.log(getTimeDiff(1779077085729,1779077080729))
+  }
+
+  async function searchSub() {
+    setPageForm({...pageForm,page:1})
+    setList(await api.getReport(pageForm))
   }
 
   return (
     <div className='reportList'>
       <div className="container-fluid">
-        <PageBox total={list.total} page={pageForm.page} limit={pageForm.limit} setPageForm={setPageForm} />
+        <div className="row">
+          <div className="col-4">
+            <div className='d-flex justify-content-center align-items-center mb-3'>
+              <input className="form-control me-2" type="text" value={pageForm.name} onChange={(e)=>setPageForm({...pageForm,name:e.target.value})} onKeyDown={(e)=> {if(e.key === 'Enter') searchSub()}} />
+              <button className='btn btn-primary' onClick={searchSub}>Search</button>
+            </div>
+          </div>
+        </div>
+        <PageBox total={list.total} data={pageForm} setPageForm={setPageForm} />
         <div className="row">
           <div className="col-8">
             {list.data.map(r=> (
-                <div className='reportListItem' key={r['_id']['$oid']}>
-                  <img className='reportListItemImg' src={r['info']['img']} />
+                <NavLink to={`/report/${r['_id']['$oid']}`} className='reportListItem' key={r['_id']['$oid']}>
+                  <div className='reportListItemImg'>
+                    <img className='reportListItemImgBox' src={r['info']['img']} />
+                  </div>
                   <div className='reportListItemContent'>
                     <div className='reportListItemContentBox'>
                       <div className='reportListItemContentBoxTitle'>{r['info']['name']}</div>
@@ -57,11 +60,11 @@ export default function ReportList() {
                     </div>
                     <div className='reportListItemContentScore'>{r?.['report']?.['score']?.['avg']||'0'}</div>
                   </div>
-                </div>
+                </NavLink>
             ))}
           </div>
         </div>
-        <PageBox total={list.total} page={pageForm.page} limit={pageForm.limit} setPageForm={setPageForm} />
+        <PageBox total={list.total} data={pageForm} setPageForm={setPageForm} />
       </div>
     </div>
   )

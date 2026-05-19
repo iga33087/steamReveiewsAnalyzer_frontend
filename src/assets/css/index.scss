@@ -9,6 +9,10 @@ html,body {
   box-shadow: 0 0 10vw rgba(0,0,0,0.8) inset;
 }
 
+a {
+  text-decoration: none;
+}
+
 .headerBox {
   height: 70px;
   .headerBoxInner {
@@ -31,6 +35,17 @@ html,body {
   .headerBoxInnerMenuItem {
     font-size: 1.3rem;
     margin-left: 2rem;
+    color:#fff;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    &:hover {
+      font-weight: bold;
+      transform: scale(1.2);
+    }
+  }
+  .active {
+    font-weight: bold;
+    transform: scale(1.2);
   }
 }
 
@@ -130,12 +145,26 @@ html,body {
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
+    color:#fff;
+    transition-duration: 0.2s;
+    &:hover {
+      box-shadow: 0 0 10px #000;
+      .reportListItemImgBox {
+        transform: scale(1.2);
+      }
+    }
   }
   .reportListItemImg {
     width: 220px;
     height: 100%;
     border-radius: 20px;
     margin-right: 1rem;
+    overflow: hidden;
+  }
+  .reportListItemImgBox {
+    width: 100%;
+    height: 100%;
+    transition-duration: 0.2s;
   }
   .reportListItemContent {
     width: calc(100% - 220px - 1rem);
@@ -157,7 +186,7 @@ html,body {
   .reportListItemContentBoxInfoItem {
     display: flex;
     align-items: center;
-    margin-right: 2rem;
+    margin-right: 1rem;
     background-color: rgba(0,0,0,0.4);
     border-radius: 10px;
     padding: 4px 10px;

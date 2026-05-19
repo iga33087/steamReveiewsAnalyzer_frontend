@@ -1,19 +1,38 @@
 import { createBrowserRouter,} from "react-router";
+import Layout from '../layout/Layout'
 import Home from '../views/Home'
 import Report from '../views/Report'
 import ReportList from '../views/ReportList'
 
 export default createBrowserRouter([
   {
-    path: "/",
-    Component: Home,
+    path: '/',
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+    ],
   },
   {
-    path: "/reportList",
-    Component: ReportList,
+    path: '/reportList',
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <ReportList />,
+      },
+    ],
   },
   {
-    path: "/report/:id",
-    Component: Report,
-  },
+    path: '/report/:id',
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <Report />,
+      },
+    ],
+  }
 ]);

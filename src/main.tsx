@@ -9,9 +9,6 @@ import './assets/css/index.scss'
 
 createRoot(document.getElementById('root')!).render(
   <>
-    <HeaderBox />
-    <div className="content">
-      <RouterProvider router={router} />
-    </div>
+    <RouterProvider router={router} />
   </>,
 )
