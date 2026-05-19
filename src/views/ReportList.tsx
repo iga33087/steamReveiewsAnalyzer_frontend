@@ -1,13 +1,19 @@
 import { useState, useEffect } from 'react'
+import PageBox from '../components/PageBox'
 import api from '../assets/js/api'
 import dayjs from 'dayjs'
 
 export default function ReportList() {
-  const [list, setList] = useState([])
+  const [pageForm,setPageForm] = useState({
+    page:1,
+    limit:5,
+    name:'wilds'
+  })
+  const [list, setList] = useState({data:[],total:0})
 
   useEffect(()=> {
-    init()
-  },[])
+    init(pageForm)
+  },[pageForm])
 
   function getTimeDiff(start,end) {
     let res=''
@@ -22,16 +28,17 @@ export default function ReportList() {
   }
 
   async function init() {
-    setList(await api.getReport())
+    setList(await api.getReport(pageForm))
     console.log(getTimeDiff(1779077085729,1779077080729))
   }
 
   return (
     <div className='reportList'>
       <div className="container-fluid">
+        <PageBox total={list.total} page={pageForm.page} limit={pageForm.limit} setPageForm={setPageForm} />
         <div className="row">
           <div className="col-8">
-            {list.map(r=> (
+            {list.data.map(r=> (
                 <div className='reportListItem' key={r['_id']['$oid']}>
                   <img className='reportListItemImg' src={r['info']['img']} />
                   <div className='reportListItemContent'>
@@ -52,27 +59,9 @@ export default function ReportList() {
                   </div>
                 </div>
             ))}
-            <div className='reportListItem'>
-              <img className='reportListItemImg' src='https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2246340/header.jpg?t=1771382452' />
-              <div className='reportListItemContent'>
-                <div className='reportListItemContentBox'>
-                  <div className='reportListItemContentBoxTitle'>Test Game 01</div>
-                  <div className='reportListItemContentBoxInfo'>
-                    <div className='reportListItemContentBoxInfoItem'>
-                      <div className='reportListItemContentBoxInfoItemTitle'>分析模型</div>
-                      <div className='reportListItemContentBoxInfoItemValue'>gemma3:4b</div>
-                    </div>
-                    <div className='reportListItemContentBoxInfoItem'>
-                      <div className='reportListItemContentBoxInfoItemTitle'>評論數量</div>
-                      <div className='reportListItemContentBoxInfoItemValue'>1000</div>
-                    </div>
-                  </div>
-                </div>
-                <div className='reportListItemContentScore'>9.0</div>
-              </div>
-            </div>
           </div>
         </div>
+        <PageBox total={list.total} page={pageForm.page} limit={pageForm.limit} setPageForm={setPageForm} />
       </div>
     </div>
   )
