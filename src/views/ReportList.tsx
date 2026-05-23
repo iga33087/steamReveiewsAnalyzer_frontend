@@ -7,8 +7,8 @@ import global from '../assets/js/global'
 export default function ReportList() {
   const [pageForm,setPageForm] = useState({
     page:1,
-    limit:5,
-    name:'wilds'
+    limit:10,
+    name:''
   })
   const [list, setList] = useState({data:[],total:0})
 

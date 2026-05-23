@@ -80,10 +80,12 @@ a {
   background-color: rgba(0,0,0,0.4);
   border-radius: 10px;
   .labelBoxTitle {
+    width: 180px;
     font-size: 1.4rem;
     font-weight: bold;
   }
   .labelBoxContent {
+
     font-size: 1.3rem;
   }
 }

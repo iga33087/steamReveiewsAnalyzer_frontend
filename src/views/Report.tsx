@@ -3,6 +3,7 @@ import api from '../assets/js/api'
 import dayjs from 'dayjs'
 import { markdown } from 'markdown'
 import { produce } from 'immer';
+import global from '../assets/js/global'
 import { useParams } from "react-router"
 import CardBox from "../components/CardBox"
 import LabelBox from "../components/LabelBox"
@@ -165,13 +166,6 @@ export default function Report() {
     setReport(data)
   }
 
-  function consumeTime() {
-    if(!report) return ''
-    const date1 = dayjs(report.genStartTime*1000);
-    const date2 = dayjs(report.genEndTime*1000);
-    return date2.diff(date1, 'minutes')
-  }
-
   return (
     <div className='report'>
       <div className="container-fluid">
@@ -186,13 +180,15 @@ export default function Report() {
                 <div className="col-4 mb-3"><LabelBox title="評論總數" content={report?.total?.total_reviews}></LabelBox></div>
                 <div className="col-4 mb-3"><LabelBox title="好評率" content={`${report?.total?.total_positive} (${((report?.total?.total_positive / report?.total?.total_reviews).toFixed(2))*100}%)`}></LabelBox></div>
                 <div className="col-4 mb-3"><LabelBox title="負評率" content={`${report?.total?.total_negative} (${((report?.total?.total_negative / report?.total?.total_reviews).toFixed(2))*100}%)`}></LabelBox></div>
+                {/*
                 <div className="col-6 mb-3"><LabelBox title="優點統整" content={
                   (report?.report?.positive||[]).map((item,index)=><span className='ms-2' key={index}>{item.title}</span>)
                 }></LabelBox></div>
                 <div className="col-6 mb-3"><LabelBox title="缺點統整" content={
                   (report?.report?.negative||[]).map((item,index)=><span className='ms-2' key={index}>{item.title}</span>)
                 }></LabelBox></div>
-                <div className="col-6 mb-3"><LabelBox title="報告生成時間" content={`${dayjs(report?.createTime*1000).format('YYYY/MM/DD HH:mm')}　(${consumeTime()})　(${report?.model})`}></LabelBox></div>
+                */}
+                <div className="col-6 mb-3"><LabelBox title="報告生成時間" content={`${dayjs(report?.createTime*1000).format('YYYY/MM/DD HH:mm')}　(耗時 ${global.getTimeDiff(report?.genEndTime*1000,report?.genStartTime*1000)})　(${report?.model})`}></LabelBox></div>
                 <div className="col-6 mb-3"><LabelBox title="評論時間範圍" content={`${report?.timeRange?.start} ~ ${report?.timeRange?.end}　(${report?.size}個評論)`}></LabelBox></div>
               </div>
           </div>
