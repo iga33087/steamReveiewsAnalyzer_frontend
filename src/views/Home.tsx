@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import api from '../assets/js/api'
+import { useSelector, useDispatch } from 'react-redux'
+import { decrement, increment } from '../store/counterSlice'
 
 export default function Home() {
   const [model, setModel] = useState([])
@@ -8,6 +10,8 @@ export default function Home() {
     model: '',
     size: ''
   })
+  const count = useSelector(state => state)
+  const dispatch = useDispatch()
 
   useEffect(()=> {
     init()
