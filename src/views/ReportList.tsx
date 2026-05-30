@@ -3,8 +3,11 @@ import PageBox from '../components/PageBox'
 import api from '../assets/js/api'
 import { NavLink } from "react-router";
 import global from '../assets/js/global'
+import { useSelector, useDispatch } from 'react-redux'
+import { loadingChange } from '../store/globalSlice'
 
 export default function ReportList() {
+  const dispatch = useDispatch()
   const [pageForm,setPageForm] = useState({
     page:1,
     limit:10,
@@ -17,7 +20,9 @@ export default function ReportList() {
   },[pageForm.page])
 
   async function init() {
+    dispatch(loadingChange(true))
     setList(await api.getReport(pageForm))
+    dispatch(loadingChange(false))
   }
 
   async function searchSub() {
@@ -29,7 +34,7 @@ export default function ReportList() {
     <div className='reportList'>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-4">
+          <div className="col-8">
             <div className='d-flex justify-content-center align-items-center mb-3'>
               <input className="form-control me-2" type="text" value={pageForm.name} onChange={(e)=>setPageForm({...pageForm,name:e.target.value})} onKeyDown={(e)=> {if(e.key === 'Enter') searchSub()}} />
               <button className='btn btn-primary' onClick={searchSub}>Search</button>
@@ -38,7 +43,7 @@ export default function ReportList() {
         </div>
         <PageBox total={list.total} data={pageForm} setPageForm={setPageForm} />
         <div className="row">
-          <div className="col-8">
+          <div className="col-12">
             {list.data.map(r=> (
                 <NavLink to={`/report/${r['_id']['$oid']}`} className='reportListItem' key={r['_id']['$oid']}>
                   <div className='reportListItemImg'>

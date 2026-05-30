@@ -1,5 +1,6 @@
 import { createBrowserRouter,} from "react-router";
 import Layout from '../layout/Layout'
+import Layout2 from '../layout/Layout2'
 import Home from '../views/Home'
 import Report from '../views/Report'
 import ReportList from '../views/ReportList'
@@ -27,7 +28,7 @@ export default createBrowserRouter([
   },
   {
     path: '/report/:id',
-    element: <Layout />,
+    element: <Layout2 />,
     children: [
       {
         index: true,

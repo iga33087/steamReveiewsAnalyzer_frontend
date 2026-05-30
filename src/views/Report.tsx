@@ -8,6 +8,8 @@ import { useParams } from "react-router"
 import CardBox from "../components/CardBox"
 import LabelBox from "../components/LabelBox"
 import ChartBox from "../components/ChartBox"
+import { useSelector, useDispatch } from 'react-redux'
+import { loadingChange } from '../store/globalSlice'
 
 function languageChart(data) {
   if(!data) return {}
@@ -152,7 +154,7 @@ function comprehensiveChart(data) {
 }
 
 export default function Report() {
-  
+  const dispatch = useDispatch()
   const [report, setReport] = useState(null)
   const params = useParams()
 
@@ -161,9 +163,11 @@ export default function Report() {
   },[])
 
   async function init(reportId) {
+    dispatch(loadingChange(true))
     const data=await api.getReportOne(reportId)
     data.report.summary=markdown.toHTML(data.report.summary)
     setReport(data)
+    dispatch(loadingChange(false))
   }
 
   return (
@@ -171,7 +175,7 @@ export default function Report() {
       <div className="container-fluid">
         <div className="row">
           <div className="col-3">
-            <img className="reportGameImg" src={report?.info?.img} style={{width:'100%'}} />
+            <img className="reportGameImg mb-3" src={report?.info?.img} style={{width:'100%'}} />
           </div>
 
           <div className="col-9">

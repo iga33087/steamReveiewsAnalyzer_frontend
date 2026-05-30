@@ -7,7 +7,6 @@ import store from './store/index'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './assets/css/index.scss'
 
-
 createRoot(document.getElementById('root')!).render(
   <>
     <Provider store={store}>

@@ -10,7 +10,7 @@ export default function RootLayout() {
       {store.global.loading && <Loading />}
       <HeaderBox />
       <div className="content">
-        <div className="layout1">
+        <div className="layout2">
           <Outlet /> 
         </div>
       </div>

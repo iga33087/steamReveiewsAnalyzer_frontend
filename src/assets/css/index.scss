@@ -57,6 +57,28 @@ a {
   overflow-y: scroll;
 }
 
+.loading {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.4);
+  position: fixed;
+  top:0;
+  left:0;
+  z-index:99;
+  .loadingBox {
+
+  }
+}
+
+.layout1 {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.layout2 {
+  width: 100%;
+}
+
 .cardBox {
   border-radius: 10px;
   overflow: hidden;
