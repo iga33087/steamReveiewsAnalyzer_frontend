@@ -1,8 +1,9 @@
 $bgColor:linear-gradient(to bottom right, #0f2b48ff 0%, #1f1f1fff 100%);
 $headerColor:rgba(77, 76, 85, 0.171);
 $buttonBoxBorderColor:radial-gradient(80% 50% at 80% 100%, #ffffffcc 0%, #ffffff00 100%), radial-gradient(50% 50% at 20% 0%, #ffffff80 0%, #ffffff00 100%), radial-gradient(50% 50% at 100% 100%, #22ff0082 0%, #ffffff0f 100%), radial-gradient(50% 50% at 0% 0%, #52ffaeb3 0%, #ffffff00 100%), linear-gradient(to right, #00fff2ff 0%, #19126dff 100%);
-$cardBoxBorderColor:radial-gradient(50% 50% at 50% 50%, #ffffff40 0%, #ffffff00 100%), linear-gradient(to bottom right, #52a5ff80 0%, #c7ffc880 100%);
+$cardBoxBorderColor:radial-gradient(50% 50% at 50% 50%, #ffffff40 0%, #ffffff00 100%), linear-gradient(to bottom right, #75d3ff80 0%, #a9ffad80 100%);
 $cardBoxInnerColor:radial-gradient(farthest-corner at 0% 0%, #ffffff26 0%, #ffffff00 100%), radial-gradient(50% 50% at 100% 100%, #ffffff26 0%, #ffffff1a 100%), linear-gradient(to bottom right, #00233dff 0%, #000000ff 100%);
+$cardBoxTitleColor:radial-gradient(farthest-corner at 100% 100%, #ffffff80 0%, #ffffff00 100%), radial-gradient(farthest-corner at 0% 0%, #ffffff80 0%, #ffffff00 100%), linear-gradient(to bottom, #38ff63ff 0%, #2483ffff 100%);
 
 html,body {
   margin: 0;
@@ -94,6 +95,9 @@ a {
     border-radius: 10px;
   }
   .cardBoxTitle {
+    background: $cardBoxTitleColor;
+    background-clip: text;
+    color: transparent;
     padding: 1rem;
     font-size: 1.4rem;
     font-weight: bold;
@@ -110,13 +114,23 @@ a {
   overflow: hidden;
   background: $buttonBoxBorderColor;
   padding: 1px;
+  cursor: pointer;
+  transition-duration: 0.2s;
   .buttonBoxInner {
     background-color: rgba(0,0,0,0.6);
     border-radius: 30px;
     padding: 0.6rem 1rem;
     text-align: center;
     font-size: 1.2rem;
-    font-weight: bold;
+    transition-duration: 0.2s;
+  }
+  &:hover {
+    box-shadow: 0 0 10px #42ff6238;
+    .buttonBoxInner {
+      background-color: rgba(0,0,0,0.4);
+      transform: scale(1.1);
+      font-weight: bold;
+    }
   }
 }
 
