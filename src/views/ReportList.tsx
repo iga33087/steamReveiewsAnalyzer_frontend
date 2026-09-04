@@ -11,7 +11,11 @@ export default function ReportList() {
   const [pageForm,setPageForm] = useState({
     page:1,
     limit:10,
-    name:''
+    name:'',
+    sort: {
+      key:'createTime',
+      type:-1
+    }
   })
   const [list, setList] = useState({data:[],total:0})
 
@@ -41,35 +45,41 @@ export default function ReportList() {
             </div>
           </div>
         </div>
-        <PageBox total={list.total} data={pageForm} setPageForm={setPageForm} />
+        <div className='d-flex align-items-center justify-content-end'>
+          <PageBox total={list.total} data={pageForm} setPageForm={setPageForm} />
+        </div>
         <div className="row">
           <div className="col-12">
             {list.data.map(r=> (
                 <NavLink to={`/report/${r['_id']['$oid']}`} className='reportListItem' key={r['_id']['$oid']}>
-                  <div className='reportListItemImg'>
-                    <img className='reportListItemImgBox' src={r['info']['img']} />
-                  </div>
-                  <div className='reportListItemContent'>
-                    <div className='reportListItemContentBox'>
-                      <div className='reportListItemContentBoxTitle'>{r['info']['name']}</div>
-                      <div className='reportListItemContentBoxInfo'>
-                        <div className='reportListItemContentBoxInfoItem'>
-                          <div className='reportListItemContentBoxInfoItemTitle'>分析模型</div>
-                          <div className='reportListItemContentBoxInfoItemValue'>{r['model']}</div>
-                        </div>
-                        <div className='reportListItemContentBoxInfoItem'>
-                          <div className='reportListItemContentBoxInfoItemTitle'>評論數量</div>
-                          <div className='reportListItemContentBoxInfoItemValue'>{r['size']}</div>
+                  <div className='reportListItemInner'>
+                    <div className='reportListItemImg'>
+                      <img className='reportListItemImgBox' src={r['info']['img']} />
+                    </div>
+                    <div className='reportListItemContent'>
+                      <div className='reportListItemContentBox'>
+                        <div className='reportListItemContentBoxTitle'>{r['info']['name']}</div>
+                        <div className='reportListItemContentBoxInfo'>
+                          <div className='reportListItemContentBoxInfoItem'>
+                            <div className='reportListItemContentBoxInfoItemTitle'>分析模型</div>
+                            <div className='reportListItemContentBoxInfoItemValue'>{r['model']}</div>
+                          </div>
+                          <div className='reportListItemContentBoxInfoItem'>
+                            <div className='reportListItemContentBoxInfoItemTitle'>評論數量</div>
+                            <div className='reportListItemContentBoxInfoItemValue'>{r['size']}</div>
+                          </div>
                         </div>
                       </div>
+                      <div className='reportListItemContentScore'>{r?.['report']?.['score']?.['avg']||'0'}</div>
                     </div>
-                    <div className='reportListItemContentScore'>{r?.['report']?.['score']?.['avg']||'0'}</div>
                   </div>
                 </NavLink>
             ))}
           </div>
         </div>
-        <PageBox total={list.total} data={pageForm} setPageForm={setPageForm} />
+        <div className='d-flex align-items-center justify-content-end'>
+          <PageBox total={list.total} data={pageForm} setPageForm={setPageForm} />
+        </div>
       </div>
     </div>
   )

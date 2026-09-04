@@ -2,7 +2,7 @@ $bgColor:linear-gradient(to bottom right, #0f2b48ff 0%, #1f1f1fff 100%);
 $headerColor:rgba(77, 76, 85, 0.171);
 $buttonBoxBorderColor:radial-gradient(80% 50% at 80% 100%, #ffffffcc 0%, #ffffff00 100%), radial-gradient(50% 50% at 20% 0%, #ffffff80 0%, #ffffff00 100%), radial-gradient(50% 50% at 100% 100%, #22ff0082 0%, #ffffff0f 100%), radial-gradient(50% 50% at 0% 0%, #52ffaeb3 0%, #ffffff00 100%), linear-gradient(to right, #00fff2ff 0%, #19126dff 100%);
 $cardBoxBorderColor:radial-gradient(50% 50% at 50% 50%, #ffffff40 0%, #ffffff00 100%), linear-gradient(to bottom right, #75d3ff80 0%, #a9ffad80 100%);
-$cardBoxInnerColor:radial-gradient(farthest-corner at 0% 0%, #ffffff26 0%, #ffffff00 100%), radial-gradient(50% 50% at 100% 100%, #ffffff26 0%, #ffffff1a 100%), linear-gradient(to bottom right, #00233dff 0%, #000000ff 100%);
+$cardBoxInnerColor:radial-gradient(farthest-corner at 0% 0%, #ffffff26 0%, #ffffff00 100%), radial-gradient(50% 50% at 100% 100%, #ffffff26 0%, #ffffff1a 100%), linear-gradient(to bottom right, #00233dff 0%, rgba(46, 46, 46, 0.659) 100%);
 $cardBoxTitleColor:radial-gradient(farthest-corner at 100% 100%, #ffffff80 0%, #ffffff00 100%), radial-gradient(farthest-corner at 0% 0%, #ffffff80 0%, #ffffff00 100%), linear-gradient(to bottom, #38ff63ff 0%, #2483ffff 100%);
 
 html,body {
@@ -115,6 +115,7 @@ a {
   background: $buttonBoxBorderColor;
   padding: 1px;
   cursor: pointer;
+  user-select: none;
   transition-duration: 0.2s;
   .buttonBoxInner {
     background-color: rgba(0,0,0,0.6);
@@ -195,7 +196,7 @@ a {
 .reportList {
   .reportListItem {
     width: 100%;
-    background-color: rgba(77, 76, 85, 0.486);
+    background:$cardBoxBorderColor;
     border-radius: 20px;
     overflow: hidden;
     display: flex;
@@ -203,17 +204,26 @@ a {
     margin-bottom: 1rem;
     color:#fff;
     transition-duration: 0.2s;
+    padding: 1px;
     &:hover {
-      box-shadow: 0 0 10px #000;
+      box-shadow: 0 0 10px #ffffffa4;
       .reportListItemImgBox {
         transform: scale(1.2);
       }
     }
   }
+  .reportListItemInner {
+    width: 100%;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: $cardBoxInnerColor;
+  }
   .reportListItemImg {
     width: 220px;
     height: 100%;
-    border-radius: 20px;
+    border-radius: 20px 0px 0px 20px;
     margin-right: 1rem;
     overflow: hidden;
   }
@@ -256,10 +266,41 @@ a {
 
   }
   .reportListItemContentScore {
-    width: 100px;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 3rem;
-    font-weight: bold;
-    text-align: center;
+    border-radius: 100%;
+    margin-right: 1rem;
+    background: $cardBoxTitleColor;
+    background-clip: text;
+    color: transparent;
+    box-shadow: 0 0 10px #383939aa;
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-width: 2px;
+      border-style: solid;
+      border-color: transparent;
+      border-radius: 100%;
+      background-image: linear-gradient(to right, #68e2ff, #4253eb, #51ff7f);
+      background-origin: border-box;
+      mask-image: linear-gradient(white, white), linear-gradient(white, white);
+      mask-composite: exclude, add;
+      mask-clip: padding-box, border-box;
+      z-index: 2;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 100%;
+      box-shadow: 10px 10px 16px #ffffff24 inset;
+    }
   }
 }
 

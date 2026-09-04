@@ -10,37 +10,67 @@ import LabelBox from "../components/LabelBox"
 import ChartBox from "../components/ChartBox"
 import { useSelector, useDispatch } from 'react-redux'
 import { loadingChange } from '../store/globalSlice'
+import * as echarts from 'echarts';
 
 function languageChart(data) {
   if(!data) return {}
   const labels=Object.keys(data.countryObj)
   return {
-    type:'bar',
-    data:{
-      labels,
-      datasets: [
-        {
-          label: '好評',
-          data: labels.map(r=>data.countryObj[r].voted_up),
-          borderWidth: 1,
-          backgroundColor:'rgb(67, 109, 172)'
-        },
-        {
-          label: '負評',
-          data: labels.map(r=>data.countryObj[r].voted_down),
-          borderWidth: 1,
-          backgroundColor:'rgb(145, 28, 28)'
-        },
-      ]
-    },
-    options:{
-      maintainAspectRatio: false,
-      scales: {
-        y: {
-          beginAtZero: true
-        }
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross'
       }
-    }
+    },
+    grid: {
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      containLabel: false
+    },
+    xAxis: {
+      data: labels,
+      axisLabel: {
+        interval: 0,
+        rotate: 45,
+        inside: false,
+        color: '#fff'
+      },
+    },
+    yAxis: {
+      axisLabel: {
+        color: '#999'
+      }
+    },
+    series: [
+      {
+        name: '好評',
+        type: 'bar',
+        showBackground: true,
+        itemStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: '#83bff6' },
+            { offset: 0.5, color: '#188df0' },
+            { offset: 1, color: '#188df0' }
+          ])
+        },
+        data: labels.map(r=>data.countryObj[r].voted_up)
+      },
+      {
+        name: '負評',
+        type: 'bar',
+        showBackground: true,
+        itemStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: '#f68383' },
+            { offset: 0.5, color: '#f01818' },
+            { offset: 1, color: '#f01818' }
+          ])
+        },
+        data: labels.map(r=>data.countryObj[r].voted_down)
+      }
+    ]
   }
 }
 
@@ -48,108 +78,180 @@ function timeChart(data) {
   if(!data) return {}
   const labels=Object.keys(data.timeObj)
   return {
-    type:'bar',
-    data:{
-      labels,
-      datasets: [
-        {
-          label: '好評',
-          data: labels.map(r=>data.timeObj[r].all.voted_up),
-          borderWidth: 1,
-          backgroundColor:'rgb(67, 109, 172)'
-        },
-        {
-          label: '負評',
-          data: labels.map(r=>data.timeObj[r].all.voted_down),
-          borderWidth: 1,
-          backgroundColor:'rgb(145, 28, 28)'
-        },
-      ]
-    },
-    options:{
-      maintainAspectRatio: false,
-      scales: {
-        y: {
-          beginAtZero: true
-        }
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross'
       }
-    }
+    },
+    grid: {
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      containLabel: false
+    },
+    xAxis: {
+      data: labels,
+      axisLabel: {
+        rotate: 45,
+        inside: false,
+        color: '#fff'
+      },
+    },
+    yAxis: {
+      axisLabel: {
+        color: '#999'
+      }
+    },
+    series: [
+      {
+        name: '好評',
+        type: 'bar',
+        showBackground: true,
+        itemStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: '#83bff6' },
+            { offset: 0.5, color: '#188df0' },
+            { offset: 1, color: '#188df0' }
+          ])
+        },
+        data: labels.map(r=>data.timeObj[r].all.voted_up)
+      },
+      {
+        name: '負評',
+        type: 'bar',
+        showBackground: true,
+        itemStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: '#f68383' },
+            { offset: 0.5, color: '#f01818' },
+            { offset: 1, color: '#f01818' }
+          ])
+        },
+        data: labels.map(r=>data.timeObj[r].all.voted_down)
+      }
+    ]
   }
 }
 
 function wordCloudChart(data) {
   if(!data) return {}
-  const labels=[
-    ...data.report.positive.map(r=> {
-      return {...r,positive:true}
-    }),
-    ...data.report.negative.map(r=> {
-      return {...r,positive:false}
-    }),
-  ]
-  const min=70/100
   return {
-    type:'wordCloud',
-    data:{
-      labels: labels.map(r=>r.title),
-      datasets: [
-        {
-          data: labels.map(r=>r.score*min),
-          color: labels.map(r=>r.positive ? 'rgb(67, 109, 172)' : 'rgb(145, 28, 28)')
+    tooltip: {
+      formatter: function (info) {
+        var value = info.value;
+        var treePathInfo = info.treePathInfo;
+        var treePath = [];
+        for (var i = 1; i < treePathInfo.length; i++) {
+          treePath.push(treePathInfo[i].name);
         }
-      ]
-    },
-    options: {
-      maintainAspectRatio: false,
-      minRotation:0,
-      title: {
-        display: false,
-      },
-      plugins: {
-        legend: {
-          display: false
-        }
+        return [
+          '<div class="tooltip-title">' +
+            echarts.format.encodeHTML(treePath.join('/')) +
+            '</div>',
+          '分數: ' + echarts.format.addCommas(value)
+        ].join('');
       }
-    }
+    },
+    series: [
+      {
+        type: 'treemap',
+        grid: {
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          containLabel: false
+        },
+        breadcrumb: {
+          show: false
+        },
+        data: [
+          {
+            name: '優點',
+            children: data.report.positive.map((r)=>({name:r.title,value:r.score})),
+            itemStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: '#83bff6' },
+                { offset: 0.5, color: '#188df0' },
+                { offset: 1, color: '#188df0' }
+              ])
+            }
+          },
+          {
+            name: '缺點',
+            children: data.report.negative.map((r)=>({name:r.title,value:r.score})),
+            itemStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: '#f68383' },
+                { offset: 0.5, color: '#f01818' },
+                { offset: 1, color: '#f01818' }
+              ])
+            }
+          }
+        ]
+      }
+    ]
   }
 }
 
 function comprehensiveChart(data) {
   if(!data) return {}
   return {
-    type:'radar',
-    data:{
-      labels: ['故事劇情', '戰鬥系統', '配樂音效', '玩法創新', '耐玩性','難度'],
-      datasets: [{
-        label: '分',
-        data: [
-          data.report.score.story,
-          data.report.score.system,
-          data.report.score.music,
-          data.report.score.creative,
-          data.report.score.replayability,
-          data.report.score.difficulty
-        ],
-      }]
+    tooltip: {
+      trigger: 'axis'
     },
-    options: {
-      maintainAspectRatio: false,
-      scales: {
-        r: {
-          min: 0,
-          max: 10,
-          beginAtZero: true
-        }
+    grid: {
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      containLabel: false
+    },
+    radar: {
+      axisName: {
+        color: '#999',
       },
-      title: {
-        display: false,
-      },
-      plugins: {
-        legend: {
-          display: false
-        }
+      indicator: [
+        { name: '故事劇情', max: 10 },
+        { name: '戰鬥系統', max: 10 },
+        { name: '配樂音效', max: 10 },
+        { name: '玩法創新', max: 10 },
+        { name: '耐玩性', max: 10 },
+        { name: '難度', max: 10 }
+      ]
+    },
+    series: [
+      {
+        type: 'radar',
+        tooltip: {
+          trigger: 'item'
+        },
+        itemStyle: {
+          color: '#188df0'    // Color of the data points and lines (unless overridden)
+        },
+        areaStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: '#83bff6' },
+            { offset: 0.5, color: '#188df0' },
+            { offset: 1, color: '#188df0' }
+          ])
+        },
+        data: [
+          {
+            value: [
+              data.report.score.story,
+              data.report.score.system,
+              data.report.score.music,
+              data.report.score.creative,
+              data.report.score.replayability,
+              data.report.score.difficulty
+            ],
+          },
+        ]
       }
-    }
+    ]
   }
 }
 
@@ -198,7 +300,7 @@ export default function Report() {
           </div>
 
           <div className="col-3 mb-3">
-            <CardBox title="綜合評價" content={<ChartBox data={comprehensiveChart(report)} width='100%' />} />
+            <CardBox title="綜合評價" content={<ChartBox data={comprehensiveChart(report)} width='100%' height='300px' />} />
           </div>
           <div className="col-9 mb-3">
             <CardBox title="優缺點統整" content={<ChartBox data={wordCloudChart(report)} height='300px' />} />
