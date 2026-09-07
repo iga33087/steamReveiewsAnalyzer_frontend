@@ -37,6 +37,8 @@ export default function Home() {
               </select>
               <select className='homeBoxInputSelect' value={form.size} onChange={(e)=>setForm({...form,size:e.target.value})}>
                 <option value=''>請選擇評論數</option>
+                <option value={30}>前30個評論</option>
+                <option value={50}>前50個評論</option>
                 <option value={100}>前100個評論</option>
                 <option value={300}>前300個評論</option>
                 <option value={500}>前500個評論</option>
