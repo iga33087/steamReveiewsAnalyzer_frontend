@@ -4,7 +4,7 @@ import Loading from '../components/Loading';
 import { useSelector, useDispatch } from 'react-redux'
 
 export default function RootLayout() {
-  const store = useSelector(state => state)
+  const store:any = useSelector(state => state)
   return (
     <>
       {store.global.loading && <Loading />}
