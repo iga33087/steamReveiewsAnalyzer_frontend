@@ -2,8 +2,11 @@ import { useState, useEffect } from 'react'
 import api from '../assets/js/api'
 import ButtonBox from "../components/ButtonBox"
 import CardBox from "../components/CardBox"
+import { useDispatch } from 'react-redux'
+import { loadingChange } from '../store/globalSlice'
 
 export default function Home() {
+  const dispatch = useDispatch()
   const [model, setModel] = useState([])
   const [form, setForm] = useState({
     id: '',
@@ -16,10 +19,13 @@ export default function Home() {
   },[])
 
   async function init() {
+    dispatch(loadingChange(true))
     setModel(await api.getModel())
+    dispatch(loadingChange(false))
   }
 
   async function genReport() {
+    dispatch(loadingChange(true))
     let res = await api.genReport(form)
     location.href = `./report/${res.id}`
   }
@@ -33,7 +39,7 @@ export default function Home() {
               <input className='homeBoxInputBox' type='text' value={form.id} onChange={(e)=>setForm({...form,id:e.target.value})} />
               <select className='homeBoxInputSelect' value={form.model} onChange={(e)=>setForm({...form,model:e.target.value})}>
                 <option value=''>請選擇模型</option>
-                {model.map(r=> <option value={r.name} key={r.name}>{r.name}</option>)}
+                {model.map((r:any)=> <option value={r.name} key={r.name}>{r.name}</option>)}
               </select>
               <select className='homeBoxInputSelect' value={form.size} onChange={(e)=>setForm({...form,size:e.target.value})}>
                 <option value=''>請選擇評論數</option>

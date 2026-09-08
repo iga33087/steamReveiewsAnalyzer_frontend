@@ -3,7 +3,7 @@ import PageBox from '../components/PageBox'
 import api from '../assets/js/api'
 import { NavLink } from "react-router";
 import global from '../assets/js/global'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { loadingChange } from '../store/globalSlice'
 
 export default function ReportList() {
