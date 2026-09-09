@@ -8,6 +8,7 @@ import { useParams } from "react-router"
 import CardBox from "../components/CardBox"
 import LabelBox from "../components/LabelBox"
 import ChartBox from "../components/ChartBox"
+import {Icon} from '@sanity/icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { loadingChange } from '../store/globalSlice'
 import * as echarts from 'echarts';
@@ -276,29 +277,36 @@ export default function Report() {
     <div className='report'>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-3">
-            <img className="reportGameImg mb-3" src={report?.info?.img} style={{width:'100%'}} />
-          </div>
-
-          <div className="col-9">
+          <div className="col-12">
+            <div className='reportInfo'>
               <div className="row">
-                <div className="col-12 fs-1 mb-2">{report?.info?.name}</div>
-                <div className="col-4 mb-3"><LabelBox title="評論總數" content={report?.total?.total_reviews}></LabelBox></div>
-                <div className="col-4 mb-3"><LabelBox title="好評率" content={`${report?.total?.total_positive} (${((report?.total?.total_positive / report?.total?.total_reviews).toFixed(2))*100}%)`}></LabelBox></div>
-                <div className="col-4 mb-3"><LabelBox title="負評率" content={`${report?.total?.total_negative} (${((report?.total?.total_negative / report?.total?.total_reviews).toFixed(2))*100}%)`}></LabelBox></div>
-                {/*
-                <div className="col-6 mb-3"><LabelBox title="優點統整" content={
-                  (report?.report?.positive||[]).map((item,index)=><span className='ms-2' key={index}>{item.title}</span>)
-                }></LabelBox></div>
-                <div className="col-6 mb-3"><LabelBox title="缺點統整" content={
-                  (report?.report?.negative||[]).map((item,index)=><span className='ms-2' key={index}>{item.title}</span>)
-                }></LabelBox></div>
-                */}
-                <div className="col-6 mb-3"><LabelBox title="報告生成時間" content={`${dayjs(report?.createTime*1000).format('YYYY/MM/DD HH:mm')}　(耗時 ${global.getTimeDiff(report?.genEndTime*1000,report?.genStartTime*1000)})　(${report?.model})`}></LabelBox></div>
-                <div className="col-6 mb-3"><LabelBox title="評論時間範圍" content={`${report?.timeRange?.start} ~ ${report?.timeRange?.end}　(${report?.size}個評論)`}></LabelBox></div>
+                <div className="col-3">
+                  <img className="reportGameImg" src={report?.info?.img} style={{width:'100%'}} />
+                </div>
+                <div className="col-9">
+                    <div className="row">
+                      <div className="col-12">
+                        <div className='d-flex align-items-center justify-content-between'>
+                          <div className='fs-2 mb-2'>{report?.info?.name}</div>
+                          <div className='d-flex align-items-center'>
+                            <div className='d-flex align-items-center me-3'>
+                              <Icon symbol="thumbs-up" style={{fontSize: 50}} />
+                              <div className='fs-4'>{`${report?.total?.total_positive} (${((report?.total?.total_positive / report?.total?.total_reviews).toFixed(2))*100}%)`}</div>
+                            </div>
+                            <div className='d-flex align-items-center'>
+                              <Icon symbol="thumbs-down" style={{fontSize: 50}} />
+                              <div className='fs-4'>{`${report?.total?.total_negative} (${((report?.total?.total_negative / report?.total?.total_reviews).toFixed(2))*100}%)`}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-6"><LabelBox title="報告生成時間" content={`${dayjs(report?.createTime*1000).format('YYYY/MM/DD HH:mm')}　(耗時 ${global.getTimeDiff(report?.genEndTime*1000,report?.genStartTime*1000)})　(${report?.model})`}></LabelBox></div>
+                      <div className="col-6"><LabelBox title="評論時間範圍" content={`${report?.timeRange?.start} ~ ${report?.timeRange?.end}　(${report?.size}個評論)`}></LabelBox></div>
+                    </div>
+                </div>
               </div>
+            </div>
           </div>
-
           <div className="col-3 mb-3">
             <CardBox title="綜合評價" content={<ChartBox data={comprehensiveChart(report)} width='100%' height='300px' />} />
           </div>
