@@ -35,23 +35,31 @@ export default function Home() {
       <div className="homeBox">
         <CardBox title="請輸入遊戲ID或是網址" content={
           <>
-            <div className='d-flex align-items-center justify-content-center mb-4'>
-              <input className='homeBoxInputBox' type='text' value={form.id} onChange={(e)=>setForm({...form,id:e.target.value})} />
-              <select className='homeBoxInputSelect' value={form.model} onChange={(e)=>setForm({...form,model:e.target.value})}>
-                <option value=''>請選擇模型</option>
-                {model.map((r:any)=> <option value={r.name} key={r.name}>{r.name}</option>)}
-              </select>
-              <select className='homeBoxInputSelect' value={form.size} onChange={(e)=>setForm({...form,size:e.target.value})}>
-                <option value=''>請選擇評論數</option>
-                <option value={10}>前10個評論</option>
-                <option value={30}>前30個評論</option>
-                <option value={50}>前50個評論</option>
-                <option value={100}>前100個評論</option>
-                <option value={300}>前300個評論</option>
-                <option value={500}>前500個評論</option>
-                <option value={800}>前800個評論</option>
-                <option value={1000}>前1000個評論</option>
-              </select>
+            <div className='container-fluid'>
+              <div className="row">
+                <div className='col-12 col-md-6 mb-3'>
+                  <input className='homeBoxInputBox' type='text' value={form.id} onChange={(e)=>setForm({...form,id:e.target.value})} />
+                </div>
+                <div className='col-12 col-md-3 mb-3'>
+                  <select className='homeBoxInputSelect' value={form.model} onChange={(e)=>setForm({...form,model:e.target.value})}>
+                    <option value=''>請選擇模型</option>
+                    {model.map((r:any)=> <option value={r.name} key={r.name}>{r.name}</option>)}
+                  </select>
+                </div>
+                <div className='col-12 col-md-3 mb-3'>
+                  <select className='homeBoxInputSelect' value={form.size} onChange={(e)=>setForm({...form,size:e.target.value})}>
+                    <option value=''>請選擇評論數</option>
+                    <option value={10}>前10個評論</option>
+                    <option value={30}>前30個評論</option>
+                    <option value={50}>前50個評論</option>
+                    <option value={100}>前100個評論</option>
+                    <option value={300}>前300個評論</option>
+                    <option value={500}>前500個評論</option>
+                    <option value={800}>前800個評論</option>
+                    <option value={1000}>前1000個評論</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div className='d-flex align-items-center justify-content-end'>
               <ButtonBox content="Generate" onClick={genReport} />
