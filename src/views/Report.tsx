@@ -2,18 +2,17 @@ import { useState, useEffect } from 'react'
 import api from '../assets/js/api'
 import dayjs from 'dayjs'
 import { markdown } from 'markdown'
-import { produce } from 'immer';
 import global from '../assets/js/global'
 import { useParams } from "react-router"
 import CardBox from "../components/CardBox"
 import LabelBox from "../components/LabelBox"
 import ChartBox from "../components/ChartBox"
 import {Icon} from '@sanity/icons'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { loadingChange } from '../store/globalSlice'
 import * as echarts from 'echarts';
 
-function languageChart(data) {
+function languageChart(data:any) {
   if(!data) return {}
   const labels=Object.keys(data.countryObj)
   return {
@@ -75,7 +74,7 @@ function languageChart(data) {
   }
 }
 
-function timeChart(data) {
+function timeChart(data:any) {
   if(!data) return {}
   const labels=Object.keys(data.timeObj)
   return {
@@ -136,11 +135,11 @@ function timeChart(data) {
   }
 }
 
-function wordCloudChart(data) {
+function wordCloudChart(data:any) {
   if(!data) return {}
   return {
     tooltip: {
-      formatter: function (info) {
+      formatter: function (info:any) {
         var value = info.value;
         var treePathInfo = info.treePathInfo;
         var treePath = [];
@@ -171,7 +170,7 @@ function wordCloudChart(data) {
         data: [
           {
             name: '優點',
-            children: data.report.positive.map((r)=>({name:r.title,value:r.score})),
+            children: data.report.positive.map((r:any)=>({name:r.title,value:r.score})),
             itemStyle: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                 { offset: 0, color: '#83bff6' },
@@ -182,7 +181,7 @@ function wordCloudChart(data) {
           },
           {
             name: '缺點',
-            children: data.report.negative.map((r)=>({name:r.title,value:r.score})),
+            children: data.report.negative.map((r:any)=>({name:r.title,value:r.score})),
             itemStyle: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                 { offset: 0, color: '#f68383' },
@@ -197,7 +196,7 @@ function wordCloudChart(data) {
   }
 }
 
-function comprehensiveChart(data) {
+function comprehensiveChart(data:any) {
   if(!data) return {}
   return {
     tooltip: {
@@ -265,7 +264,7 @@ export default function Report() {
     init(params.id)
   },[])
 
-  async function init(reportId) {
+  async function init(reportId:any) {
     dispatch(loadingChange(true))
     const data=await api.getReportOne(reportId)
     data.report.summary=markdown.toHTML(data.report.summary)
@@ -287,7 +286,7 @@ export default function Report() {
                     <div className="row">
                       <div className="col-12 col-lg-12">
                         <div className='d-flex align-items-center justify-content-between'>
-                          <div className='fs-2 mb-2'>{report?.info?.name}</div>
+                          <div className='reportInfoTitle fs-2 mb-2'>{report?.info?.name}</div>
                           <div className='d-flex align-items-center'>
                             <div className='d-flex align-items-center me-3'>
                               <Icon symbol="thumbs-up" style={{fontSize: 50}} />

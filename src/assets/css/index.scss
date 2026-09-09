@@ -89,7 +89,7 @@ a {
 }
 
 .layout1 {
-  width: 1200px;
+  width: 1180px;
   margin: 0 auto;
   @include rwd($xl) {
     width: 100%;
@@ -156,17 +156,17 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 0.6rem 1rem;
   background-color: rgba(0,0,0,0.4);
   border-radius: 10px;
   .labelBoxTitle {
     width: 180px;
-    font-size: 1.4rem;
+    font-size: 1.1rem;
     font-weight: bold;
   }
   .labelBoxContent {
 
-    font-size: 1.3rem;
+    font-size: 1rem;
   }
 }
 
@@ -212,6 +212,12 @@ a {
     background: $reportInfoColor;
     border-radius: 10px;
     margin-bottom: 1rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  }
+  .reportInfoTitle {
+    background: $cardBoxTitleColor;
+    background-clip: text;
+    color: transparent;
   }
 }
 
