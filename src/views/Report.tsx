@@ -276,15 +276,15 @@ export default function Report() {
     <div className='report'>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-12 col-lg-12">
+          <div className="col-12 col-md-12">
             <div className='reportInfo'>
               <div className="row">
-                <div className="col-3 col-lg-3">
+                <div className="col-12 col-md-3">
                   <img className="reportGameImg" src={report?.info?.img} style={{width:'100%'}} />
                 </div>
-                <div className="col-9 col-lg-9">
+                <div className="col-12 col-md-9">
                     <div className="row">
-                      <div className="col-12 col-lg-12">
+                      <div className="col-12 col-md-12">
                         <div className='d-flex align-items-center justify-content-between'>
                           <div className='reportInfoTitle fs-2 mb-2'>{report?.info?.name}</div>
                           <div className='d-flex align-items-center'>
@@ -299,8 +299,8 @@ export default function Report() {
                           </div>
                         </div>
                       </div>
-                      <div className="col-6 col-lg-6"><LabelBox title="報告生成時間" content={`${dayjs(report?.createTime*1000).format('YYYY/MM/DD HH:mm')}　(耗時 ${global.getTimeDiff(report?.genEndTime*1000,report?.genStartTime*1000)})　(${report?.model})`}></LabelBox></div>
-                      <div className="col-6 col-lg-6"><LabelBox title="評論時間範圍" content={`${report?.timeRange?.start} ~ ${report?.timeRange?.end}　(${report?.size}個評論)`}></LabelBox></div>
+                      <div className="col-12 col-md-6"><LabelBox title="報告生成時間" content={`${dayjs(report?.createTime*1000).format('YYYY/MM/DD HH:mm')}　(耗時 ${global.getTimeDiff(report?.genEndTime*1000,report?.genStartTime*1000)})　(${report?.model})`}></LabelBox></div>
+                      <div className="col-12 col-md-6"><LabelBox title="評論時間範圍" content={`${report?.timeRange?.start} ~ ${report?.timeRange?.end}　(${report?.size}個評論)`}></LabelBox></div>
                     </div>
                 </div>
               </div>
