@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import PageBox from '../components/PageBox'
 import api from '../assets/js/api'
 import { NavLink } from "react-router";
-import global from '../assets/js/global'
+import {Icon} from '@sanity/icons'
 import { useDispatch } from 'react-redux'
 import { loadingChange } from '../store/globalSlice'
 
@@ -22,6 +22,15 @@ export default function ReportList() {
   useEffect(()=> {
     init()
   },[pageForm.page])
+
+  async function del(event,id:any) {
+    event.preventDefault()
+    event.stopPropagation()
+    dispatch(loadingChange(true))
+    await api.delReportOne(id)
+    setList(await api.getReport(pageForm))
+    dispatch(loadingChange(false))
+  }
 
   async function init() {
     dispatch(loadingChange(true))
@@ -71,6 +80,13 @@ export default function ReportList() {
                         </div>
                       </div>
                       <div className='reportListItemContentScore'>{r?.['report']?.['score']?.['avg']||'0'}</div>
+                    </div>
+                  </div>
+                  <div className='reportListItemMenu'>
+                    <Icon className='reportListItemMenuButton' symbol="ellipsis-horizontal" style={{fontSize: 30}} />
+                    <div className='reportListItemMenuColl'>
+                      <div className='reportListItemMenuCollItem'>列為範例文本</div>
+                      <div className='reportListItemMenuCollItem' onClick={(event)=>del(event,r['_id']['$oid'])}>刪除</div>
                     </div>
                   </div>
                 </NavLink>

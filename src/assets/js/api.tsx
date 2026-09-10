@@ -35,6 +35,9 @@ export default {
   async getReportOne(x:any) {
     return instance.get(`/report/${x}`).then(res=>res.data)
   },
+  async delReportOne(x:any) {
+    return instance.delete(`/report/${x}`).then(res=>res.data)
+  },
   async getModel() {
     return instance.get(`/model`).then(res=>res.data)
   },
