@@ -61,7 +61,7 @@ export default function Home() {
                   </select>
                 </div>
                 <div className='col-12 col-md-3 mb-3'>
-                  <div>
+                  <div className='form-check'>
                     <input className="form-check-input" type="checkbox" value={form.refer} id="flexCheckChecked" onChange={(e)=>setForm({...form,refer:e.target.checked ? true : false})} />
                     <label className="form-check-label" htmlFor="flexCheckChecked">
                       參考範例文本

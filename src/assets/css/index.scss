@@ -269,9 +269,16 @@ a {
   .reportListItemContentBox {
   }
   .reportListItemContentBoxTitle {
+    display: flex;
+    align-items: center;
     font-size: 1.6rem;
     font-weight: bold;
     margin-bottom: 1rem;
+  }
+  .reportListItemContentBoxTitleMark {
+    &:hover {
+      color: #ffc429;
+    }
   }
   .reportListItemContentBoxInfo {
     display: flex;
@@ -354,9 +361,13 @@ a {
     border-radius: 10px;
     overflow: hidden;
   }
-  .reportListItemMenuCollItem {
+  .reportListItemMenuCollInner {
     background-color: rgba(0,0,0,0.2);
+    border-radius: 10px;
+  }
+  .reportListItemMenuCollItem {
     color:#fff;
+    border-radius: 10px;
     text-align: center;
     &:hover {
       background-color: rgba(0,0,0,0.4);

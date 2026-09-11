@@ -77,7 +77,7 @@ export default function ReportList() {
                     <div className='reportListItemContent'>
                       <div className='reportListItemContentBox'>
                         <div className='reportListItemContentBoxTitle'>
-                          { r.mark ? <Icon symbol="star-filled" style={{fontSize: 30}} /> : <Icon symbol="star" style={{fontSize: 30}} onClick={(event)=>markup(event,r['_id']['$oid'])} />}
+                          { r.mark ? <Icon className="reportListItemContentBoxTitleMark" symbol="star-filled" style={{fontSize: 30,color:'#ffc429'}} /> : <Icon className="reportListItemContentBoxTitleMark" symbol="star" style={{fontSize: 30}} onClick={(event)=>markup(event,r['_id']['$oid'])} />}
                           {r['info']['name']}
                         </div>
                         <div className='reportListItemContentBoxInfo'>
@@ -97,8 +97,10 @@ export default function ReportList() {
                   <div className='reportListItemMenu'>
                     <Icon className='reportListItemMenuButton' symbol="ellipsis-horizontal" style={{fontSize: 30}} />
                     <div className='reportListItemMenuColl'>
-                      <div className='reportListItemMenuCollItem' onClick={(event)=>markup(event,r['_id']['$oid'])}>列為範例文本</div>
-                      <div className='reportListItemMenuCollItem' onClick={(event)=>del(event,r['_id']['$oid'])}>刪除</div>
+                      <div className='reportListItemMenuCollInner'>
+                        <div className='reportListItemMenuCollItem' onClick={(event)=>markup(event,r['_id']['$oid'])}>列為範例文本</div>
+                        <div className='reportListItemMenuCollItem' onClick={(event)=>del(event,r['_id']['$oid'])}>刪除</div>
+                      </div>
                     </div>
                   </div>
                 </NavLink>
