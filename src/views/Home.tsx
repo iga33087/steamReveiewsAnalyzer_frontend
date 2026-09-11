@@ -11,7 +11,8 @@ export default function Home() {
   const [form, setForm] = useState({
     id: '',
     model: '',
-    size: ''
+    size: '',
+    refer: false
   })
 
   useEffect(()=> {
@@ -58,6 +59,14 @@ export default function Home() {
                     <option value={800}>前800個評論</option>
                     <option value={1000}>前1000個評論</option>
                   </select>
+                </div>
+                <div className='col-12 col-md-3 mb-3'>
+                  <div>
+                    <input className="form-check-input" type="checkbox" value={form.refer} id="flexCheckChecked" onChange={(e)=>setForm({...form,refer:e.target.checked ? true : false})} />
+                    <label className="form-check-label" htmlFor="flexCheckChecked">
+                      參考範例文本
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>

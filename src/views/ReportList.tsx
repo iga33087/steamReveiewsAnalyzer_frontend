@@ -23,11 +23,20 @@ export default function ReportList() {
     init()
   },[pageForm.page])
 
-  async function del(event,id:any) {
+  async function del(event:any,id:any) {
     event.preventDefault()
     event.stopPropagation()
     dispatch(loadingChange(true))
     await api.delReportOne(id)
+    setList(await api.getReport(pageForm))
+    dispatch(loadingChange(false))
+  }
+
+  async function markup(event:any,id:any) {
+    event.preventDefault()
+    event.stopPropagation()
+    dispatch(loadingChange(true))
+    await api.markupReport(id)
     setList(await api.getReport(pageForm))
     dispatch(loadingChange(false))
   }
@@ -59,7 +68,7 @@ export default function ReportList() {
         </div>
         <div className="row">
           <div className="col-12">
-            {list.data.map(r=> (
+            {list.data.map((r:any)=> (
                 <NavLink to={`/report/${r['_id']['$oid']}`} className='reportListItem' key={r['_id']['$oid']}>
                   <div className='reportListItemInner'>
                     <div className='reportListItemImg'>
@@ -67,7 +76,10 @@ export default function ReportList() {
                     </div>
                     <div className='reportListItemContent'>
                       <div className='reportListItemContentBox'>
-                        <div className='reportListItemContentBoxTitle'>{r['info']['name']}</div>
+                        <div className='reportListItemContentBoxTitle'>
+                          { r.mark ? <Icon symbol="star-filled" style={{fontSize: 30}} /> : <Icon symbol="star" style={{fontSize: 30}} onClick={(event)=>markup(event,r['_id']['$oid'])} />}
+                          {r['info']['name']}
+                        </div>
                         <div className='reportListItemContentBoxInfo'>
                           <div className='reportListItemContentBoxInfoItem'>
                             <div className='reportListItemContentBoxInfoItemTitle'>分析模型</div>
@@ -85,7 +97,7 @@ export default function ReportList() {
                   <div className='reportListItemMenu'>
                     <Icon className='reportListItemMenuButton' symbol="ellipsis-horizontal" style={{fontSize: 30}} />
                     <div className='reportListItemMenuColl'>
-                      <div className='reportListItemMenuCollItem'>列為範例文本</div>
+                      <div className='reportListItemMenuCollItem' onClick={(event)=>markup(event,r['_id']['$oid'])}>列為範例文本</div>
                       <div className='reportListItemMenuCollItem' onClick={(event)=>del(event,r['_id']['$oid'])}>刪除</div>
                     </div>
                   </div>
